@@ -53,3 +53,13 @@ class Deck:
     def shuffle(self):
         """Shuffles the cards in this deck."""
         random.shuffle(self._cards)
+
+    def deal(self, n, hands=1):
+        if hands == 1:
+            return [self._cards.pop() for _ in range(2)]
+        elif hands > 1:
+            return [[self._cards.pop() for _ in range(2)] for _ in range(hands)]
+        elif not isinstance(hands, int):
+            raise TypeError("hands must be int")
+        else:
+            raise ValueError("hands must be > 0")

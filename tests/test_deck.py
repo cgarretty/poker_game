@@ -27,3 +27,9 @@ def test_deck_string():
 def test_deck_length():
     cards = deck.Deck()
     assert len(cards) == 52
+
+
+def test_shuffle_deck():
+    cards = deck.Deck()
+    cards.shuffle()
+    assert cards[-1] != deck.Card(12, 3)

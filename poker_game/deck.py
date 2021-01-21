@@ -1,3 +1,5 @@
+import random
+
 
 class Card:
     pretty_ranks = [str(n) for n in range(2, 11)] + list("JQKA")
@@ -47,3 +49,7 @@ class Deck:
 
     def __getitem__(self, position):
         return self._cards[position]
+
+    def shuffle(self):
+        """Shuffles the cards in this deck."""
+        random.shuffle(self._cards)

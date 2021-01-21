@@ -1,0 +1,16 @@
+# test and pyc files
+.coverage
+.pytest_cache
+htmlcov
+.installed.cfg
+develop-eggs
+dist
+downloads
+eggs
+parts
+src/*.egg-info
+lib
+lib64
+
+# misc files
+.DS_Store

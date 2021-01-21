@@ -4,9 +4,14 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+pytest = "*"
 
 [dev-packages]
 ipython = "*"
+pre-commit = "*"
+coverage = "*"
+prospector = "*"
+yapf = "*"
 
 [requires]
 python_version = "3.7"

@@ -30,9 +30,6 @@ class Card:
         t2 = other.rank, other.suit
         return t1 < t2
 
-    def __add__(self, other):
-        return self._cards + other._cards
-
     def __mul__(self, other):
         return [Card(self.rank, self.suit) for _ in range(other)]
 
@@ -49,6 +46,15 @@ class Deck:
 
     def __getitem__(self, position):
         return self._cards[position]
+
+    def __eq__(self, other):
+        return self._cards == other._cards
+
+    def __add__(self, other):
+        c = self._cards + other._cards
+        d = Deck()
+        d.add_cards(*c)
+        return d
 
     def add_cards(self, card, *args):
         """Add a card or list of cards to this deck."""

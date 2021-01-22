@@ -30,6 +30,7 @@ def test_deck_add():
     d2 = deck.Deck()
     d2.add_cards(deck.Card(0, 0))
     assert d1 + d2 == d2
+    assert d1 != d2
 
 
 def test_deck_add_card():
@@ -48,7 +49,7 @@ def test_deck_deal():
     cards = deck.Deck()
     cards.add_cards(*[deck.Card(r, s) for s in range(4) for r in range(13)])
     hand = deck.Hand(cards.deal(2))
-    print(hand._cards)
+
     assert len(hand) == 2
     assert hand[0] not in cards
 

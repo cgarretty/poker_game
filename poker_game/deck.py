@@ -30,6 +30,9 @@ class Card:
         t2 = other.rank, other.suit
         return t1 < t2
 
+    def __add__(self, other):
+        return self._cards + other._cards
+
     def __mul__(self, other):
         return [Card(self.rank, self.suit) for _ in range(other)]
 

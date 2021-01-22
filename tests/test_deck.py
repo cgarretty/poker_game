@@ -25,6 +25,13 @@ def test_deck_string():
     assert str(cards) == "Deck()"
 
 
+def test_deck_add():
+    d1 = deck.Deck()
+    d2 = deck.Deck()
+    d2.add_cards(deck.Card(0, 0))
+    assert d1 + d2 == d2
+
+
 def test_deck_add_card():
     cards = deck.Deck()
 

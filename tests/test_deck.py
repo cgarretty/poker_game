@@ -25,34 +25,44 @@ def test_deck_string():
     assert str(cards) == "Deck()"
 
 
-def test_deck_length():
+def test_deck_add_card():
     cards = deck.Deck()
-    assert len(cards) == 52
 
 
 def test_deck_shuffle():
     cards = deck.Deck()
+    cards.add_cards(*[deck.Card(r, s) for s in range(4) for r in range(13)])
+    assert cards[-1] == deck.Card(12, 3)
     cards.shuffle()
     assert cards[-1] != deck.Card(12, 3)
 
 
 def test_deck_deal():
     cards = deck.Deck()
-    hand = cards.deal(2)
+    cards.add_cards(*[deck.Card(r, s) for s in range(4) for r in range(13)])
+    hand = deck.Hand(cards.deal(2))
+    print(hand._cards)
     assert len(hand) == 2
     assert hand[0] not in cards
 
 
 def test_deck_deal_multiple_players():
     cards = deck.Deck()
-    p1, p2 = cards.deal(2, hands=2)
-    assert p1
-    assert p2
+    cards.add_cards(*[deck.Card(r, s) for s in range(4) for r in range(13)])
+    p1, p2 = [deck.Hand(c) for c in cards.deal(2, hands=2)]
+    assert len(p1) == 2
+    assert len(p2) == 2
 
 
 def test_deck_deal_errors():
     cards = deck.Deck()
+    cards.add_cards(*[deck.Card(r, s) for s in range(4) for r in range(13)])
     with pytest.raises(ValueError, match=r"> 0"):
         cards.deal(2, hands=0)
     with pytest.raises(TypeError, match=r"int"):
         cards.deal(2, hands="0")
+
+
+def test_french_deck_length():
+    cards = deck.FrenchDeck()
+    assert len(cards) == 52

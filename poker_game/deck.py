@@ -10,6 +10,7 @@ class Card:
         self.suit = suit
 
     def __repr__(self):
+        print(self.rank, self.suit)
         return "Card(rank='{}', suit='{}')".format(
             self.pretty_ranks[self.rank],
             self.pretty_suits[self.suit]
@@ -34,12 +35,8 @@ class Card:
 
 
 class Deck:
-    ranks = [n for n in range(13)]
-    suits = [n for n in range(4)]
-
     def __init__(self):
-        self._cards = [Card(rank, suit) for suit in self.suits
-                       for rank in self.ranks]
+        self._cards = []
 
     def __repr__(self):
         return "Deck()"
@@ -49,6 +46,13 @@ class Deck:
 
     def __getitem__(self, position):
         return self._cards[position]
+
+    def add_cards(self, card, *args):
+        """Add a card or list of cards to this deck."""
+        self._cards.append(card)
+        for c in args:
+            self._cards.append(c)
+        return self._cards
 
     def shuffle(self):
         """Shuffles the cards in this deck."""
@@ -63,3 +67,25 @@ class Deck:
             raise TypeError("hands must be int")
         else:
             raise ValueError("hands must be > 0")
+
+
+class FrenchDeck(Deck):
+    ranks = [n for n in range(13)]
+    suits = [n for n in range(4)]
+
+    def __init__(self):
+        self._cards = [Card(r, s) for s in range(4) for r in range(13)]
+
+    def __repr__(self):
+        return "FrenchDeck()"
+
+
+class Hand(Deck):
+    """Represents a hand of playing cards."""
+
+    def __init__(self, cards, label=''):
+        self._cards = cards
+        self.label = label
+
+    def __repr__(self):
+        return "Hand(label='{}')".format(self.label)

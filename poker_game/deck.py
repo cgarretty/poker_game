@@ -10,7 +10,6 @@ class Card:
         self.suit = suit
 
     def __repr__(self):
-        print(self.rank, self.suit)
         return "Card(rank='{}', suit='{}')".format(
             self.pretty_ranks[self.rank],
             self.pretty_suits[self.suit]
@@ -69,9 +68,12 @@ class Deck:
 
     def deal(self, n, hands=1):
         if hands == 1:
-            return [self._cards.pop() for _ in range(2)]
+            return Hand([self._cards.pop() for _ in range(2)])
         elif hands > 1:
-            return [[self._cards.pop() for _ in range(2)] for _ in range(hands)]
+            return (
+                Hand([self._cards.pop() for _ in range(2)])
+                for _ in range(hands)
+            )
         elif not isinstance(hands, int):
             raise TypeError("hands must be int")
         else:
@@ -92,9 +94,9 @@ class FrenchDeck(Deck):
 class Hand(Deck):
     """Represents a hand of playing cards."""
 
-    def __init__(self, cards, label=''):
+    def __init__(self, cards, label=None):
         self._cards = cards
         self.label = label
 
     def __repr__(self):
-        return "Hand(label='{}')".format(self.label)
+        return "Hand({_cards}, label={label})".format(**self.__dict__)

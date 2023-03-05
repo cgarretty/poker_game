@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from .views import hello_world
+from poker_game.views import hello_world
 
 urlpatterns = [
     path('api/hello', hello_world, name='hello_world'),

@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 3rd Party Apps
     'corsheaders',
+    # my apps
+    'poker_game',
 ]
 
 MIDDLEWARE = [

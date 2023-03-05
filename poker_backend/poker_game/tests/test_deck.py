@@ -1,4 +1,4 @@
-from poker_game import deck
+from ..poker import deck
 import pytest
 
 
@@ -31,10 +31,6 @@ def test_deck_add():
     d2.add_cards(deck.Card(0, 0))
     assert d1 + d2 == d2
     assert d1 != d2
-
-
-def test_deck_add_card():
-    cards = deck.Deck()
 
 
 def test_deck_shuffle():

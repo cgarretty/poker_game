@@ -1,6 +1,7 @@
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+
 class HelloViewTestCase(APITestCase):
     def test_hello_view(self):
         url = '/api/hello/'

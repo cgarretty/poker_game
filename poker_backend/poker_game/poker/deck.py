@@ -35,43 +35,43 @@ class Card:
 
 class Deck:
     def __init__(self):
-        self._cards = []
+        self.cards = []
 
     def __repr__(self):
         return "Deck()"
 
     def __len__(self):
-        return len(self._cards)
+        return len(self.cards)
 
     def __getitem__(self, position):
-        return self._cards[position]
+        return self.cards[position]
 
     def __eq__(self, other):
-        return self._cards == other._cards
+        return self.cards == other.cards
 
     def __add__(self, other):
-        c = self._cards + other._cards
+        c = self.cards + other.cards
         d = Deck()
         d.add_cards(*c)
         return d
 
     def add_cards(self, card, *args):
         """Add a card or list of cards to this deck."""
-        self._cards.append(card)
+        self.cards.append(card)
         for c in args:
-            self._cards.append(c)
-        return self._cards
+            self.cards.append(c)
+        return self.cards
 
     def shuffle(self):
         """Shuffles the cards in this deck."""
-        random.shuffle(self._cards)
+        random.shuffle(self.cards)
 
     def deal(self, n, hands=1):
         if hands == 1:
-            return Hand([self._cards.pop() for _ in range(2)])
+            return Hand([self.cards.pop() for _ in range(2)])
         elif hands > 1:
             return (
-                Hand([self._cards.pop() for _ in range(2)])
+                Hand([self.cards.pop() for _ in range(2)])
                 for _ in range(hands)
             )
         elif not isinstance(hands, int):
@@ -85,7 +85,7 @@ class FrenchDeck(Deck):
     suits = [n for n in range(4)]
 
     def __init__(self):
-        self._cards = [Card(r, s) for s in range(4) for r in range(13)]
+        self.cards = [Card(r, s) for s in range(4) for r in range(13)]
 
     def __repr__(self):
         return "FrenchDeck()"
@@ -95,8 +95,8 @@ class Hand(Deck):
     """Represents a hand of playing cards."""
 
     def __init__(self, cards, label=None):
-        self._cards = cards
+        self.cards = cards
         self.label = label
 
     def __repr__(self):
-        return "Hand({_cards}, label={label})".format(**self.__dict__)
+        return "Hand({cards}, label={label})".format(**self.__dict__)

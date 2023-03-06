@@ -21,3 +21,17 @@ class HandViewTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data['hand']), 2)
         self.assertNotEqual(response.data['hand'][0], response.data['hand'][1])
+
+
+class HandEvalViewTestCase(APITestCase):
+    def test_hand_view(self):
+        url = reverse('evaluate_hand')
+        data = {
+            "hand": [
+                {"rank": '10', "suit": '♥'},
+                {"rank": '5', "suit": '♦'},
+            ],
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['ranking'], "High Card")

@@ -6,11 +6,22 @@ class Card:
     pretty_suits = "♣ ♦ ♥ ♠".split(" ")
 
     def __init__(self, rank, suit):
-        self.rank = rank
-        self.suit = suit
+        if isinstance(rank, int) and isinstance(suit, int):
+            self.rank = rank
+            self.suit = suit
 
-        self.pretty_rank = self.pretty_ranks[self.rank]
-        self.pretty_suit = self.pretty_suits[self.suit]
+            self.pretty_rank = self.pretty_ranks[self.rank]
+            self.pretty_suit = self.pretty_suits[self.suit]
+
+        elif isinstance(rank, str) and isinstance(suit, str):
+            self.pretty_rank = rank
+            self.pretty_suit = suit
+
+            self.rank = self.pretty_ranks.index(self.pretty_rank)
+            self.suit = self.pretty_suits.index(self.pretty_suit)
+
+        else:
+            raise TypeError("Yo, something is fucked.")
 
     def __repr__(self):
         return "Card(rank='{}', suit='{}')".format(

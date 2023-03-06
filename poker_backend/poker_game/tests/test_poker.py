@@ -75,11 +75,11 @@ def test_hand_rank_royal_flush():
 
 
 def test_two_card_hand():
-    hand = Hand([Card(0, 0), Card(0, 1), ])
+    hand = Hand([Card(0, 0), Card(1, 1), ])
     player = Player()
     player.hand = hand
 
-    assert player.evaluate_hand() == ("Pair", Card(0, 0))
+    assert player.evaluate_hand() == ("High Card", Card(0, 0))
 
 
 def test_seven_card_hand():

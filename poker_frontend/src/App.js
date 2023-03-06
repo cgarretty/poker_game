@@ -1,10 +1,10 @@
 import React from 'react';
-import HelloWorld from './HelloWorld';
+import Hand from './Hand'
 
 function App() {
   return (
     <div>
-      <HelloWorld />
+      <Hand />
     </div>
   );
 }

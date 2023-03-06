@@ -5,7 +5,7 @@ function HandView() {
   const [hand, setHand] = useState(null);
 
   const handleClick = async () => {
-    const response = await axios.post('/api/deal_hand', {});
+    const response = await axios.post('http://localhost:8000/api/deal_hand', {});
     setHand(response.data.hand);
   };
 

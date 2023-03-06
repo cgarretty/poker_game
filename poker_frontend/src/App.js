@@ -1,10 +1,10 @@
 import React from 'react';
-import Hand from './Hand'
+import DealHand from './DealHand'
 
 function App() {
   return (
     <div>
-      <Hand />
+      <DealHand />
     </div>
   );
 }

@@ -120,7 +120,7 @@ class Player:
         if len(pairs) == 1:
             return "Pair", pairs[0][0]
 
-        return "High Card", cards[0]
+        return "High Card", cards[-1]
 
 class Seat:
     def __init__(self, buy_in):

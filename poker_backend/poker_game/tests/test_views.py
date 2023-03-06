@@ -16,12 +16,8 @@ class HelloViewTestCase(APITestCase):
 class HandViewTestCase(APITestCase):
     def test_hand_view(self):
         url = reverse('deal_hand')
-        data = {
-            'hand': [
-                {'rank': '10', 'suit': '♥'},
-                {'rank': '5', 'suit': '♦'}
-            ]
-        }
+        data = {}
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data, data)
+        self.assertEqual(len(response.data['hand']), 2)
+        self.assertNotEqual(response.data['hand'][0], response.data['hand'][1])

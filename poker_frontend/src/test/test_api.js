@@ -1,20 +1,20 @@
-const axios = require('axios');
 const assert = require('assert');
+const axios = require('axios');
 
-describe('API Test', function () {
-  it('should return 2 hardcoded cards from the API', async function () {
-    const response = await axios.post('http://localhost:8000/api/deal_hand', {
-      hand: [
-        { rank: '10', suit: '♥' },
-        { rank: '5', suit: '♦' },
-      ],
-    });
-    assert.deepStrictEqual(response.status, 200);
-    assert.deepStrictEqual(response.data, {
-      hand: [
-        { rank: '10', suit: '♥' },
-        { rank: '5', suit: '♦' },
-      ],
-    });
+describe('Deal Hand API', function() {
+  it('should return a hand with any two cards', function(done) {
+    axios.post('http://localhost:8000/api/deal_hand', {})
+      .then(function(response) {
+        assert.strictEqual(response.status, 200);
+        assert.strictEqual(response.data.hand.length, 2);
+        assert.strictEqual(typeof response.data.hand[0].rank, 'string');
+        assert.strictEqual(typeof response.data.hand[0].suit, 'string');
+        assert.strictEqual(typeof response.data.hand[1].rank, 'string');
+        assert.strictEqual(typeof response.data.hand[1].suit, 'string');
+        done();
+      })
+      .catch(function(error) {
+        done(error);
+      });
   });
 });

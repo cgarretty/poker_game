@@ -13,12 +13,12 @@ def hello_world(request):
 
 @api_view(['POST'])
 def deal_hand(request):
-    hand = deck.Hand(
-        cards=[
-            deck.Card(rank='10', suit='♥'),
-            deck.Card(rank='5', suit='♦')
-        ]
-    )
+    # Find a new deck, shuffle and deal it.
+    french_deck = deck.FrenchDeck()
+    french_deck.shuffle()
+    hand = french_deck.deal(2)
+
+    # serialize the hand
     serializer = HandSerializer(hand)
 
     return Response(serializer.data)

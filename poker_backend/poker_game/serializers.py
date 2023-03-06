@@ -13,8 +13,8 @@ class HandSerializer(serializers.Serializer):
         return {
             'hand': [
                 {
-                    'rank': card.rank,
-                    'suit': card.suit
+                    'rank': card.pretty_rank,
+                    'suit': card.pretty_suit,
                 }
                 for card in instance.cards
             ]

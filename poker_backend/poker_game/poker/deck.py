@@ -9,10 +9,13 @@ class Card:
         self.rank = rank
         self.suit = suit
 
+        self.pretty_rank = self.pretty_ranks[self.rank]
+        self.pretty_suit = self.pretty_suits[self.suit]
+
     def __repr__(self):
         return "Card(rank='{}', suit='{}')".format(
-            self.pretty_ranks[self.rank],
-            self.pretty_suits[self.suit]
+            self.pretty_rank,
+            self.pretty_suit,
         )
 
     def __eq__(self, other):

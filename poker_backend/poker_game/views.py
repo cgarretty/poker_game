@@ -18,7 +18,7 @@ def hello_world(request):
 def deal_hand(request):
     deck_id = request.data.get("deck_id")
     # Find a new deck, shuffle and deal it.
-    if deck_id:
+    if deck_id in cache:
         french_deck = cache.get(deck_id)
     else:
         deck_id = uuid.uuid4()
@@ -41,7 +41,7 @@ def evaluate_hand(request):
     serializer = HandSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
     hand = serializer.save()
-    print(hand[0].rank, hand[1].rank)
+
     player = poker.Player()
     player.hand = hand
     ranking, high_card = player.evaluate_hand()

@@ -1,14 +1,21 @@
 import React from 'react';
 
 function Hand({ hand }) {
+
+  var cards;
+  if (hand !== undefined) {
+    cards = hand.hand
+  }
+
   return (
     <div>
-      {hand &&
+      {cards && cards.length > 0 && (
         <div>
-          <p>{hand.hand[0].rank} of {hand.hand[0].suit}</p>
-          <p>{hand.hand[1].rank} of {hand.hand[1].suit}</p>
+          {cards.map((card, index) => (
+            <p key={index}>{card.rank} of {card.suit}</p>
+          ))}
         </div>
-      }
+      )}
     </div>
   );
 }

@@ -1,37 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import Hand from './Hand';
-import HandEval from './HandEval';
+// import HandEval from './HandEval';
 
 
-function HandView() {
-  const [hand, setHand] = useState(null);
-  const [handEval, setHandEval] = useState(null);
-
-  const handleClick = async () => {
-    const response = await axios.post('http://localhost:8000/api/player/deal_hand', {});
-    console.log(response.data);
-    setHand(response.data);
-  };
-
-  useEffect(() => {
-    if (hand) {
-      axios.post('http://localhost:8000/api/player/evaluate_hand', hand)
-        .then(response => {
-          console.log(response.data)
-          setHandEval(response.data);
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    }
-  }, [hand]);
+function HandView(props) {
 
   return (
     <div>
-      <button onClick={handleClick}>Deal Hand</button>
-      <Hand hand={hand} />
-      <HandEval handEval={handEval} />
+      <h3>{props.name}</h3>
+      <button onClick={() => props.getHand(props.n, props.name)}>Deal {props.name}</button>
+      <Hand hand={props.hand} />
     </div>
   );
 }

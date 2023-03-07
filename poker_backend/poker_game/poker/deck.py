@@ -82,10 +82,10 @@ class Deck:
 
     def deal(self, n, hands=1):
         if hands == 1:
-            return Hand([self.cards.pop() for _ in range(2)])
+            return Hand([self.cards.pop() for _ in range(n)])
         elif hands > 1:
             return (
-                Hand([self.cards.pop() for _ in range(2)])
+                Hand([self.cards.pop() for _ in range(n)])
                 for _ in range(hands)
             )
         elif not isinstance(hands, int):

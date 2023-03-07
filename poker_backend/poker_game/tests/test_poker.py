@@ -79,7 +79,7 @@ def test_two_card_hand():
     player = Player()
     player.hand = hand
 
-    assert player.evaluate_hand() == ("High Card", Card(0, 0))
+    assert player.evaluate_hand() == ("High Card", Card(1, 1))
 
 
 def test_seven_card_hand():

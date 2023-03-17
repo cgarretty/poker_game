@@ -21,10 +21,10 @@ def hello_world(request):
 def deal_hand(request):
     deck_id = request.data.get("deck_id")
 
-    logger.debug(deck_id)
+    logger.debug(request.data)
 
     # Find a new deck, shuffle and deal it.
-    if deck_id in cache:
+    if deck_id and deck_id in cache:
         french_deck = cache.get(deck_id)
     else:
         deck_id = uuid.uuid4()

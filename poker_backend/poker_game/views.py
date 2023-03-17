@@ -1,4 +1,5 @@
 import uuid
+import logging
 
 from django.core.cache import cache
 
@@ -9,6 +10,8 @@ from .poker import deck, poker
 from .serializers import HandSerializer, HandEvalSerializer
 
 
+logger = logging.getLogger(__name__)
+
 @api_view(['GET'])
 def hello_world(request):
     return Response({'message': 'Hello, world!'})
@@ -17,6 +20,9 @@ def hello_world(request):
 @api_view(['POST'])
 def deal_hand(request):
     deck_id = request.data.get("deck_id")
+
+    logger.debug(deck_id)
+
     # Find a new deck, shuffle and deal it.
     if deck_id in cache:
         french_deck = cache.get(deck_id)

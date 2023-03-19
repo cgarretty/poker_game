@@ -10,7 +10,7 @@ function App() {
 
   function handleDeal(numCards, deckId, name) {
     axios.post(
-      'http://localhost:8000/api/player/deal_hand',
+      'http://localhost:8000/api/deck/deal_hand',
       {
         n_cards: numCards,
         deck_id: deckId

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import DealHand from './DealHand';
 import DealBoard from './DealBoard';
 import HandEval from './HandEval';
+import { isEqual } from 'lodash';
 
 function App() {
 
@@ -22,11 +23,11 @@ function App() {
   }
 
   const [game, setGame] = useState(new_game);
-
   const [handEval, setHandEval] = useState(null);
 
   function newGame() {
     setGame(new_game);
+    setHandEval(null);
   }
 
 
@@ -44,8 +45,8 @@ function App() {
           {
             deck_id: response.data.deck_id,
             board: {
-              nextStageIndex: 0,
-              cards: ((name === 'Board') ? response.data.hand : game.board.cards)
+              nextStageIndex: ((name === 'Board') ? game.board.nextStageIndex + 1 : game.board.nextStageIndex),
+              cards: [...game.board.cards, ...((name === 'Board') ? response.data.hand : [])]
             },
             hand: ((name === 'Hand') ? response.data.hand : game.hand)
           }
@@ -73,11 +74,13 @@ function App() {
   }, [game]);
   console.log('current_state', game);
   return (
-    <div>
-      <DealHand getHand={newGame} name='New Game' />
-      <DealBoard getHand={handleDeal} board={game.board} />
+    <div class='game-table'>
+      <DealBoard getHand={handleDeal} board={game.board} stages={stages} />
       <DealHand getHand={handleDeal} hand={game.hand} name='player_1' />
       <HandEval handEval={handEval} />
+      <div>
+        {!isEqual(game, new_game) && <button onClick={() => newGame()}>Deal New Game</button>}
+      </div>
     </div>
   );
 }

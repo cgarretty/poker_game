@@ -1,28 +1,34 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import DealHand from './DealHand';
+import DealBoard from './DealBoard';
 import HandEval from './HandEval';
 
 function App() {
-  const [game, setGame] = useState(
-    {
-      deck_id: null,
-      hand: [],
-      board: []
+
+  const stages = [
+    { stageName: 'flop', dealNumber: 3 },
+    { stageName: 'turn', dealNumber: 1 },
+    { stageName: 'river', dealNumber: 1 }
+  ]
+
+  const new_game = {
+    deck_id: null,
+    hand: [],
+    board: {
+      nextStageIndex: 0,
+      cards: []
     }
-  );
+  }
+
+  const [game, setGame] = useState(new_game);
 
   const [handEval, setHandEval] = useState(null);
 
   function newGame() {
-    setGame(
-      {
-        deck_id: null,
-        hand: [],
-        board: []
-      }
-    );
+    setGame(new_game);
   }
+
 
   function handleDeal(numCards, name) {
     axios.post(
@@ -37,7 +43,10 @@ function App() {
         setGame(
           {
             deck_id: response.data.deck_id,
-            board: ((name === 'Board') ? response.data.hand : game.board),
+            board: {
+              nextStageIndex: 0,
+              cards: ((name === 'Board') ? response.data.hand : game.board.cards)
+            },
             hand: ((name === 'Hand') ? response.data.hand : game.hand)
           }
         );
@@ -52,7 +61,7 @@ function App() {
       'http://localhost:8000/api/player/evaluate_hand',
       {
         deck_id: game.deck_id,
-        hand: [...game.board, ...game.hand]
+        hand: [...game.board.cards, ...game.hand]
       }
     )
       .then(response => {
@@ -62,12 +71,12 @@ function App() {
         console.error(error);
       });
   }, [game]);
-
+  console.log('current_state', game);
   return (
     <div>
       <DealHand getHand={newGame} name='New Game' />
-      <DealHand getHand={handleDeal} hand={game.board} n={3} name='Board' />
-      <DealHand getHand={handleDeal} hand={game.hand} n={2} name='Hand' />
+      <DealBoard getHand={handleDeal} board={game.board} />
+      <DealHand getHand={handleDeal} hand={game.hand} name='player_1' />
       <HandEval handEval={handEval} />
     </div>
   );

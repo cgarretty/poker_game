@@ -4,7 +4,7 @@ function Hand({ hand }) {
 
   var cards;
   if (hand !== undefined) {
-    cards = hand.hand
+    cards = hand
   }
 
   return (

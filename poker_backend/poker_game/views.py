@@ -50,6 +50,10 @@ def evaluate_hand(request):
 
     player = poker.Player()
     player.hand = hand
+
+    if not hand:
+        return Response()
+
     ranking, high_card = player.evaluate_hand()
 
     # serialize

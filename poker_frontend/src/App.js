@@ -5,6 +5,10 @@ import DealBoard from './DealBoard';
 import HandEval from './HandEval';
 import { isEqual } from 'lodash';
 
+import Button from '@mui/material/Button';
+
+import './App.css';
+
 function App() {
 
   const stages = [
@@ -14,6 +18,7 @@ function App() {
   ]
 
   const new_game = {
+    is_dealer: true,
     deck_id: null,
     hand: [],
     board: {
@@ -72,14 +77,14 @@ function App() {
         console.error(error);
       });
   }, [game]);
-  console.log('current_state', game);
+
   return (
-    <div class='game-table'>
+    <div className='game-table'>
       <DealBoard getHand={handleDeal} board={game.board} stages={stages} />
-      <DealHand getHand={handleDeal} hand={game.hand} name='player_1' />
-      <HandEval handEval={handEval} />
-      <div>
-        {!isEqual(game, new_game) && <button onClick={() => newGame()}>Deal New Game</button>}
+      <div className='player-box'>
+        {!isEqual(game, new_game) && <Button variant="contained" onClick={() => newGame()}>Deal New Game</Button>}
+        <DealHand getHand={handleDeal} hand={game.hand} name='player_1' />
+        <HandEval handEval={handEval} />
       </div>
     </div>
   );

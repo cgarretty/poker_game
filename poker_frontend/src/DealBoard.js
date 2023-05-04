@@ -1,5 +1,6 @@
 import Hand from './Hand';
 import React from 'react';
+import Button from '@mui/material/Button';
 
 function BoardView(props) {
   return (
@@ -7,12 +8,12 @@ function BoardView(props) {
       <h3>{props.name}</h3>
       {
         props.board.nextStageIndex < props.stages.length &&
-        < button onClick={() => props.getHand(
+        < Button variant="contained" onClick={() => props.getHand(
           props.stages[props.board.nextStageIndex].dealNumber,
           'Board'
         )}>
           Deal {props.name}
-        </button>
+        </Button>
       }
       <Hand hand={props.board.cards} />
     </div >

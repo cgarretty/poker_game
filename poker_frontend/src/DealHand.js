@@ -1,18 +1,18 @@
 import Hand from './Hand';
 import React from 'react';
 import { isEmpty } from 'lodash';
+import Button from '@mui/material/Button';
 
 function HandView(props) {
-  console.log(!props.hand);
+
   return (
     <div>
       <h3>{props.name}</h3>
-
       {
         isEmpty(props.hand) &&
-        <button onClick={() => props.getHand(2, 'Hand')}>
+        <Button variant="contained" onClick={() => props.getHand(2, 'Hand')}>
           Deal {props.name}
-        </button>
+        </Button>
       }
       <Hand hand={props.hand} />
     </div>

@@ -1,0 +1,21 @@
+  .card {
+    font-size: 8rem;
+    width: 5rem;
+    display: inline-block; /* Display the elements side-by-side */
+  }
+
+  .heart {
+    color: red;
+  }
+
+  .spade {
+    color: black;
+  }
+
+  .diamond {
+    color: green;
+  }
+
+  .club {
+    color: blue;
+  }

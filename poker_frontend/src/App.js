@@ -3,9 +3,7 @@ import React, { useEffect, useState } from 'react';
 import DealHand from './DealHand';
 import DealBoard from './DealBoard';
 import HandEval from './HandEval';
-import { isEmpty } from 'lodash';
-
-import Button from '@mui/material/Button';
+import DealerButton from './DealerButton';
 
 import './App.css';
 
@@ -80,25 +78,7 @@ function App() {
 
   return (
     <div className='game-table'>
-      {
-        game.board.nextStageIndex === 3 &&
-        <Button variant="contained" onClick={() => newGame()}>Deal New Game</Button>
-      }
-      {
-        (game.board.nextStageIndex < stages.length && !isEmpty(game.hand)) &&
-        < Button variant="contained" onClick={() => handleDeal(
-          stages[game.board.nextStageIndex].dealNumber,
-          'Board'
-        )}>
-          Deal {stages[game.board.nextStageIndex].stageName}
-        </Button>
-      }
-      {
-        isEmpty(game.hand) &&
-        <Button variant="contained" onClick={() => handleDeal(2, 'Hand')}>
-          Deal Hands
-        </Button>
-      }
+      <DealerButton game={game} handleDeal={handleDeal} newGame={newGame} stages={stages} />
       <DealBoard getHand={handleDeal} board={game.board} stages={stages} />
       <div className='player-box'>
         <DealHand getHand={handleDeal} hand={game.hand} name='player_1' />

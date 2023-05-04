@@ -66,7 +66,7 @@ function Hand({ hand }) {
     [JSON.stringify({ rank: "J", suit: "♣" }), "🃛"],
     [JSON.stringify({ rank: "Q", suit: "♣" }), "🃝"],
     [JSON.stringify({ rank: "K", suit: "♣" }), "🃞"],
-    [JSON.stringify({ rank: "A", suit: "♣" }), "🃞"],
+    [JSON.stringify({ rank: "A", suit: "♣" }), "🃑"],
   ]);
 
   var cards;

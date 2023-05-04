@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import DealHand from './DealHand';
 import DealBoard from './DealBoard';
 import HandEval from './HandEval';
-import { isEqual } from 'lodash';
+import { isEmpty } from 'lodash';
 
 import Button from '@mui/material/Button';
 
@@ -80,9 +80,27 @@ function App() {
 
   return (
     <div className='game-table'>
+      {
+        game.board.nextStageIndex === 3 &&
+        <Button variant="contained" onClick={() => newGame()}>Deal New Game</Button>
+      }
+      {
+        (game.board.nextStageIndex < stages.length && !isEmpty(game.hand)) &&
+        < Button variant="contained" onClick={() => handleDeal(
+          stages[game.board.nextStageIndex].dealNumber,
+          'Board'
+        )}>
+          Deal {stages[game.board.nextStageIndex].stageName}
+        </Button>
+      }
+      {
+        isEmpty(game.hand) &&
+        <Button variant="contained" onClick={() => handleDeal(2, 'Hand')}>
+          Deal Hands
+        </Button>
+      }
       <DealBoard getHand={handleDeal} board={game.board} stages={stages} />
       <div className='player-box'>
-        {!isEqual(game, new_game) && <Button variant="contained" onClick={() => newGame()}>Deal New Game</Button>}
         <DealHand getHand={handleDeal} hand={game.hand} name='player_1' />
         <HandEval handEval={handEval} />
       </div>

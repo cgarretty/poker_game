@@ -27,7 +27,7 @@ def deal_hand(request):
     if deck_id and deck_id in cache:
         french_deck = cache.get(deck_id)
     else:
-        deck_id = uuid.uuid4()
+        deck_id = deck_id if deck_id else uuid.uuid4()
         french_deck = deck.FrenchDeck()
         french_deck.shuffle()
 

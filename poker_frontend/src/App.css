@@ -4,10 +4,21 @@
   top: 2rem;
 }
 
-.player-box {
+.players {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
   position: fixed;
+  bottom: 0;
   left: 0;
-  bottom: 2rem;
-  width: 100%;
+  right: 0;
+}
+
+.player-box {
+  min-width: 15rem;
+  min-height: 16rem;
   text-align: center;
+  margin: 1rem;
+  padding: 1rem;
 }

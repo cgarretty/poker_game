@@ -1,10 +1,16 @@
+import React, { useState } from 'react';
+
+// libraries
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import DealHand from './DealHand';
-import DealBoard from './DealBoard';
-import HandEval from './HandEval';
+import { v4 as uuidv4 } from 'uuid';
+
+// components
+import PlayerView from './PlayerView';
+import BoardView from './BoardView';
 import DealerButton from './DealerButton';
 
+// style
+import { Card } from '@mui/material';
 import './App.css';
 
 function App() {
@@ -15,10 +21,29 @@ function App() {
     { stageName: 'river', dealNumber: 1 }
   ]
 
+  const new_players = [
+    {
+      name: 'Hero',
+      hand: [],
+      eval: {},
+      isDealer: true
+    },
+    {
+      name: 'Villian 1',
+      hand: [],
+      eval: {},
+      isDealer: false
+    },
+    {
+      name: 'Villian 2',
+      hand: [],
+      eval: {},
+      isDealer: false
+    }
+  ]
+
   const new_game = {
-    is_dealer: true,
-    deck_id: null,
-    hand: [],
+    deck_id: uuidv4(),
     board: {
       nextStageIndex: 0,
       cards: []
@@ -26,15 +51,14 @@ function App() {
   }
 
   const [game, setGame] = useState(new_game);
-  const [handEval, setHandEval] = useState(null);
+  const [players, setPlayers] = useState(new_players);
 
   function newGame() {
     setGame(new_game);
-    setHandEval(null);
+    setPlayers(new_players);
   }
 
-
-  function handleDeal(numCards, name) {
+  function handleBoard(numCards) {
     axios.post(
       'http://localhost:8000/api/deck/deal_hand',
       {
@@ -43,46 +67,67 @@ function App() {
       }
     )
       .then(response => {
-        console.log(response.data)
+        console.log('response: ', response.data)
         setGame(
           {
             deck_id: response.data.deck_id,
             board: {
-              nextStageIndex: ((name === 'Board') ? game.board.nextStageIndex + 1 : game.board.nextStageIndex),
-              cards: [...game.board.cards, ...((name === 'Board') ? response.data.hand : [])]
-            },
-            hand: ((name === 'Hand') ? response.data.hand : game.hand)
+              nextStageIndex: game.board.nextStageIndex + 1,
+              cards: [...game.board.cards, ...response.data.hand]
+            }
           }
         );
+        console.log('game: ', game);
       })
       .catch(error => {
         console.log(error);
       });
   }
 
-  useEffect(() => {
+  function handleDeal(numCards, playerIndex) {
     axios.post(
-      'http://localhost:8000/api/player/evaluate_hand',
+      'http://localhost:8000/api/deck/deal_hand',
       {
-        deck_id: game.deck_id,
-        hand: [...game.board.cards, ...game.hand]
+        n_cards: numCards,
+        deck_id: game.deck_id
       }
     )
       .then(response => {
-        setHandEval(response.data);
+        const copiedPlayers = [...players];
+        copiedPlayers[playerIndex] = {
+          eval: players[playerIndex].eval,
+          name: players[playerIndex].name,
+          hand: response.data.hand,
+          isDealer: players[playerIndex].isDealer
+        };
+        setPlayers(copiedPlayers);
       })
       .catch(error => {
-        console.error(error);
+        console.log(error);
       });
-  }, [game]);
+  }
 
   return (
     <div className='game-table'>
-      <DealerButton game={game} handleDeal={handleDeal} newGame={newGame} stages={stages} />
-      <DealBoard getHand={handleDeal} board={game.board} stages={stages} />
-      <div className='player-box'>
-        <DealHand getHand={handleDeal} hand={game.hand} name='player_1' />
-        <HandEval handEval={handEval} />
+      <BoardView getHand={handleBoard} board={game.board} stages={stages} />
+      <div className='players'>
+        {
+          players.map((player, index) => (
+            <Card key={index} variant='outlined' className='player-box' >
+              <DealerButton
+                game={game}
+                players={players}
+                handleBoard={handleBoard}
+                handleDeal={handleDeal}
+                newGame={newGame}
+                stages={stages}
+                playerIndex={index}
+                player={player}
+              />
+              <PlayerView getHand={handleDeal} player={player} />
+            </Card>
+          ))
+        }
       </div>
     </div>
   );

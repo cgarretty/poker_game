@@ -1,6 +1,9 @@
 import React from 'react';
 
-function HandEval({ handEval }) {
+function HandEval(props) {
+
+  const handEval = props.handEval(props.player, props.playerIndex);
+
   return (
     <div>
       {handEval &&

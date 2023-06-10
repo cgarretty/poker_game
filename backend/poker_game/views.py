@@ -12,6 +12,7 @@ from .serializers import HandSerializer, HandEvalSerializer
 
 logger = logging.getLogger(__name__)
 
+
 @api_view(['GET'])
 def hello_world(request):
     return Response({'message': 'Hello, world!'})

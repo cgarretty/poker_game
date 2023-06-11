@@ -6,9 +6,6 @@ WORKDIR /app
 
 COPY package*.json ./
 
-# install yarn
-RUN npm install -g yarn
-
 COPY . .
 
-ENTRYPOINT ["yarn", "build"]
+ENTRYPOINT ["yarn", "start"]

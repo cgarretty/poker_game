@@ -122,6 +122,7 @@ class Player:
 
         return "High Card", cards[-1]
 
+
 class Seat:
     def __init__(self, buy_in):
         self.buy_in = buy_in

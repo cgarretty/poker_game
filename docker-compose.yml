@@ -9,7 +9,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
 
-  web:
+  backend:
     build: ./backend
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
@@ -23,11 +23,21 @@ services:
     depends_on:
       - db
 
-  frontend:
-    build: ./frontend
+  game_engine:
+    build: ./game_engine
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./game_engine:/code
+    depends_on:
+      - backend
+
+  player_client:
+    build: ./player_client
     ports:
       - "3000:3000"
     volumes:
-      - ./frontend:/app
+      - ./player_client:/app
     depends_on:
-      - web
+      - backend
+      - game_engine

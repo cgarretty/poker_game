@@ -17,19 +17,19 @@ logs:
 	@docker-compose logs -f
 
 migrations:
-	@docker-compose exec web python manage.py makemigrations
+	@docker-compose exec backend python manage.py makemigrations
 
 migrate:
-	@docker-compose exec web python manage.py migrate
+	@docker-compose exec backend python manage.py migrate
 
 createsuperuser:
-	@docker-compose exec web python manage.py createsuperuser
+	@docker-compose exec backend python manage.py createsuperuser
 
 static:
-	@docker-compose exec web python manage.py collectstatic --no-input
+	@docker-compose exec backend python manage.py collectstatic --no-input
 
 shell:
-	@docker-compose exec web python manage.py shell
+	@docker-compose exec backend python manage.py shell
 
 test: #run tests with pytest
-	@docker-compose exec web pytest -q
+	@docker-compose exec backend pytest -q

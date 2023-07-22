@@ -1,17 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import LoginLogout from './LoginLogout';
 
 // style
-import Box from '@mui/material/Box';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
 import MenuIcon from '@mui/icons-material/Menu';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import Button from '@mui/material/Button';
+import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
-
-function NavBar(props) {
+function NavBar({ isLoggedIn, setIsLoggedIn }) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -28,9 +26,7 @@ function NavBar(props) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Texas Hold'em Poker
           </Typography>
-          <Link to="/login">
-            <Button color="inherit">Login</Button>
-          </Link>
+          <LoginLogout isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
         </Toolbar>
       </AppBar>
     </Box>

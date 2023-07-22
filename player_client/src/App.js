@@ -9,7 +9,7 @@ function App() {
 
   return (
     <Router>
-      <NavBar />
+      <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <Routes>
         <Route
           path="/"

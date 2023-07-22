@@ -1,18 +1,12 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { GoogleLogin } from "@react-oauth/google";
 import GameTable from "./Components/GameTable";
+import NavBar from "./Components/NavBar";
 import axios from "axios";
 
-// style
-import Box from '@mui/material/Box';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import MenuIcon from '@mui/icons-material/Menu';
-import IconButton from '@mui/material/IconButton';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+
 
 const clientId =
   "999204329578-8o7b6eqkque0bnnv84d9k5h3nqbmniu8.apps.googleusercontent.com";
@@ -50,27 +44,7 @@ function App() {
 
   return (
     <Router>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Texas Hold'em Poker
-            </Typography>
-            <Link to="/login">
-              <Button color="inherit">Login</Button>
-            </Link>
-          </Toolbar>
-        </AppBar>
-      </Box>
+      <NavBar />
       <Routes>
         <Route
           path="/"

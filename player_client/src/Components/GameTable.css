@@ -1,0 +1,25 @@
+.game-table {
+    position: relative;
+    text-align: center;
+    top: 2rem;
+  }
+  
+  .players {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  
+  .player-box {
+    min-width: 15rem;
+    min-height: 16rem;
+    text-align: center;
+    margin: 1rem;
+    padding: 1rem;
+  }
+  

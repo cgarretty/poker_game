@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'corsheaders',
     # my apps
     'poker_game',
+    "player",
 ]
 
 MIDDLEWARE = [
@@ -124,6 +125,16 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Social Auth Settings
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.google.GoogleOAuth2',
+]
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv('GOOGLE_CLIENT_ID')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv('GOOGLE_CLIENT_SECRET')
+
+SIMPLE_JWT = {
+    'AUTH_HEADER_TYPES': ('Bearer',),
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/

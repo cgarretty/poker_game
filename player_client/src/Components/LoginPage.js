@@ -1,4 +1,5 @@
 import React from "react";
+import { useUser } from '../Hooks/UserProvider';
 
 // style
 import Box from "@mui/material/Box";
@@ -10,15 +11,20 @@ import axios from "axios";
 const clientId =
   "999204329578-8o7b6eqkque0bnnv84d9k5h3nqbmniu8.apps.googleusercontent.com";
 
-const LoginPage = ({ setIsLoggedIn }) => {
+const LoginPage = () => {
+  const { setProfile, setIsLoggedIn } = useUser();
 
   const handleGoogleLogin = (response) => {
     console.log("response: ", response);
-    axios
-      .post("http://localhost:8000/player/auth/google/", {
-        access_token: response.credential,
-      })
-      .then((response) => {
+    axios(
+      {
+          method: "post",
+          url: "http://localhost:8000/player/auth/google/",
+          headers: { Authorization: `Bearer ${response.credential}` }
+      }
+    )
+      .then(() => {
+        setProfile(response);
         setIsLoggedIn(true);
       })
       .catch((error) => {

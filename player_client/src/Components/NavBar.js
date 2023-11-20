@@ -9,7 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
-function NavBar({ isLoggedIn, setIsLoggedIn }) {
+function NavBar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -26,7 +26,7 @@ function NavBar({ isLoggedIn, setIsLoggedIn }) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Texas Hold'em Poker
           </Typography>
-          <LoginLogout isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+          <LoginLogout />
         </Toolbar>
       </AppBar>
     </Box>

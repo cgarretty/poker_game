@@ -33,3 +33,6 @@ shell:
 
 test: #run tests with pytest
 	@docker-compose exec backend pytest -q
+
+reset-db:
+	@docker-compose exec backend python manage.py flush --noinput

@@ -1,22 +1,24 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import React from "react";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import CreateGameTable from "./Components/CreateGameTable";
 import GameTable from "./Components/GameTable";
-import NavBar from "./Components/NavBar";
 import LoginPage from "./Components/LoginPage";
+import NavBar from "./Components/NavBar";
+import { useUser } from "./Hooks/UserProvider";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const { isLoggedIn, setIsLoggedIn } = useUser();
   return (
     <Router>
       <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <Routes>
         <Route
           path="/"
-          element={isLoggedIn ? <GameTable /> : <LoginPage setIsLoggedIn={setIsLoggedIn} />}
+          element={isLoggedIn ? <CreateGameTable /> : <LoginPage setIsLoggedIn={setIsLoggedIn} />}
         />
         <Route path="/login" element={<LoginPage setIsLoggedIn={setIsLoggedIn} />} />
-        <Route path="/gametable" element={<GameTable />} />
+        <Route path="/gametable/:uuid" element={<GameTable />} />
+        <Route path="/gametable/new" element={<CreateGameTable />} />
       </Routes>
     </Router>
   );
